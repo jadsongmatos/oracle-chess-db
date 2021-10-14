@@ -1,5 +1,7 @@
-import {Prisma, PrismaClient} from '@prisma/client'
+import {PrismaClient} from '@prisma/client'
 import express from 'express'
+import cors from 'cors'
+
 import checkGames from "./checkGames";
 import compressVec from "./compressVec";
 
@@ -11,6 +13,7 @@ const prisma = new PrismaClient()
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 app.get(`/game/:id`, async (req, res) => {
     const {id}: { id?: string } = req.params
