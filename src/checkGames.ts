@@ -1,4 +1,4 @@
-const Chess: any = require("chess.js")
+const {Chess}: any = require("chess.js")
 
 export default function checkGames(body: any) {
     const cmpMoves = body.moves.slice(0, -1);

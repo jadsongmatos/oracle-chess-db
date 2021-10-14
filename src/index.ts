@@ -82,15 +82,14 @@ async function postProgress(body: any) {
         if (body.gamesWins !== [] && Array.isArray(body.gamesWins)) {
             if (checkGames(body)) {
                 try {
-                    let i = 0;
-                    for (let game of body.gamesWins) {
+                    await body.gamesWins.forEach(async (game:any) => {
                         await prisma.checkmate.create({
                             data: {
                                 game: compressVec(game), //"sa5f45ds4",
                             },
                         });
-                        i++;
-                    }
+                    });
+                                           
 
                     try {
                         await prisma.initial.update({
@@ -121,10 +120,10 @@ async function postProgress(body: any) {
                         };
                     }
                 } catch (error) {
-                    console.error("checkmate.createMany", error);
+                    console.error("checkmate.create", error);
                     return {
                         status: 500,
-                        data: {message: "checkmate.createMany", error: error},
+                        data: {message: "checkmate.create", error: error},
                     };
                 }
             } else {
