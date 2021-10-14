@@ -14,6 +14,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static("./prisma/"))
 
 app.get(`/game/:id`, async (req, res) => {
     const {id}: { id?: string } = req.params
@@ -46,7 +47,7 @@ async function getProgress(skip: number) {
                         moves: String(init.moves),
                     },
                     data: {
-                        time: new Date().toString(),
+                        time: new Date().getTime(),
                     },
                     select: {
                         moves: true,
@@ -99,7 +100,7 @@ async function postProgress(body: any) {
                             data: {
                                 progress: body.progress, //"[0,0,0,0,0]",
                                 length: JSON.parse(body.progress).length,
-                                time: new Date().toUTCString(),
+                                time: new Date().getTime(),
                             },
                             select: {
                                 progress: true,
@@ -166,7 +167,7 @@ async function updateProgress(game: any) {
                 data: {
                     progress: game.progress, //"[0,0,0,0,0]",
                     length: JSON.parse(game.progress).length,
-                    time: new Date().toUTCString(),
+                    time: new Date().getTime(),
                 },
                 select: {
                     progress: true,

@@ -16,6 +16,6 @@ model initial {
   moves    String? @unique(map: "initial_moves_uindex")
   progress String? @unique(map: "sqlite_autoindex_initial_1")
   length   Int?    @default(4)
-  time     String?
+  time     Int?    @default(0)
   id       Int     @id @default(autoincrement())
 }
